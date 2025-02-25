@@ -1,3 +1,10 @@
+//Zubaidah Bandele
+//Feb 24, 2025
+//zb64@njit.edu
+//Phase 2
+//IT302-452
+
+
 import GamesDAO from '../dao/gamesDAO.js';
 
 export default class GamesController {
