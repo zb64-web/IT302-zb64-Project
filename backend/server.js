@@ -7,7 +7,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use("/api/v1/it302/games_zb64", games)
+app.use("/api/v1/zb64/games", games)
 
 app.use('*', (req, res) => {
     res.status(404).json({ error: "not found" })

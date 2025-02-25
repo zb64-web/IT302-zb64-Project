@@ -13,18 +13,14 @@ export default class GamesController {
         const page = req.query.page ? parseInt(req.query.page) : 0;
 
         let filters = {};
-
         if (req.query.genre) {
-            filters.genre = req.query.genre;
+            filters.genre = req.query.genre
+        } else if (req.query.title) {
+            filters.title = req.query.title
         }
-
-        if (req.query.title) {
-            filters.title = req.query.title;
-        }
-
         const { gamesList, totalNumGames } = await GamesDAO.getGames({
             filters, page, gamesPerPage
-        });
+        })
 
         let response = {
             games: gamesList,
@@ -33,7 +29,31 @@ export default class GamesController {
             entries_per_page: gamesPerPage,
             total_results: totalNumGames,
         };
-
         res.json(response);
+    }
+
+    static async apiGetGamesById(req, res, next) {
+        try {
+            let id = req.params.id || {}
+            let games = await GamesDAO.getGamesById(id)
+            if (!games) {
+                res.status(404).json({ error: "not found" })
+                return
+            }
+            res.json(games)
+        } catch (e) {
+            console.log(`api, ${e}`)
+            res.status(500).json({ error: e })
+        }
+    }
+
+    static async apiGetGenres(req, res, next) {
+        try {
+            let propertyTypes = await GamesDAO.getGenres()
+            res.json(propertyTypes)
+        } catch (e) {
+            console.log(`api, ${e}`)
+            res.status(500).json({ error: e })
+        }
     }
 }

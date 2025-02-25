@@ -5,7 +5,7 @@ export default class GamesDAO {
         if (games) {
             return
         } try {
-            games = await conn.db(process.env.GAMES_NS).collection('games')
+            games = await conn.db(process.env.GAMES_NS).collection('games_zb64')
         } catch (e) {
             console.error(`unable to connect in GamesDAO: ${e}`)
         }
@@ -37,6 +37,31 @@ export default class GamesDAO {
             console.error(`Unable to issue find command, ${e}`)
             console.error(e)
             return { gamesList: [], totalNumGames: 0 }
+        }
+    }
+
+    static async apiGamesById(id) {
+        try {
+            return await games.aggregate([
+                {
+                    $match: {
+                        _id: ObjectId.createFromHexString(id),
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'games_zb64',
+                        localField: '_id',
+                        foreignField: 'id',
+                        as: 'games'
+                    }
+                }
+            ]).next()
+        }
+        catch (e) {
+            console.error(`something went wrong in getMovieById: ${e}`)
+            throw e
         }
     }
 }
