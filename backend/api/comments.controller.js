@@ -1,3 +1,8 @@
+//Zubaidah Bandele
+//March 24, 2025
+//zb64@njit.edu
+//Phase 3
+//IT302-452
 import CommentsDAO from '../dao/commentsDAO.js'
 
 export default class CommentsController {
