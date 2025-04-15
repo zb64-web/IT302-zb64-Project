@@ -1,3 +1,7 @@
+//Zubaidah Bandele
+//IT302-452
+//April 14, 2025
+//Phase4
 import React, { useState, useEffect } from 'react'
 import GameDataService from '../services/gamesDataService'
 import { Link, useParams } from 'react-router-dom'
