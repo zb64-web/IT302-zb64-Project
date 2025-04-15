@@ -1,4 +1,6 @@
 let games
+import { ObjectId } from 'mongodb';
+
 
 export default class GamesDAO {
     static async injectDB(conn) {
@@ -40,7 +42,17 @@ export default class GamesDAO {
         }
     }
 
-    static async apiGamesById(id) {
+    static async getGenres() {
+        try {
+            return await games.distinct("genre");
+        } catch (e) {
+            console.error(`Unable to get genres: ${e}`);
+            return [];
+        }
+    }
+    
+
+    static async getGamesById(id) {
         try {
             return await games.aggregate([
                 {
