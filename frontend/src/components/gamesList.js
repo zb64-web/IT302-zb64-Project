@@ -138,7 +138,7 @@ const GamesList = () => {
                                             Genre: {game.genre}
                                         </Card.Text>
                                         <Card.Text>{game.short_description}</Card.Text>
-                                        <Link to={"/games/" + game._id} >View Game</Link>
+                                        <Link to={"games/" + game._id} >View Game</Link>
                                     </Card.Body>
                                 </Card>
                             </Col>

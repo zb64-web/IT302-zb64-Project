@@ -52,7 +52,7 @@ const Game = ({ user }) => {
                                     {game.short_description}
                                 </Card.Text>
                                 {user &&
-                                    <Link to={"/games/" + id + "/comment"}>
+                                    <Link to={"games/" + id + "/comment"}>
                                         Add Comment
                                     </Link>}
                             </Card.Body>
