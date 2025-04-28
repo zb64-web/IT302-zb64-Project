@@ -66,14 +66,13 @@ export default class CommentsDAO {
     static async deleteComment(commentId, userId) {
         try {
             const deleteResponse = await comments.deleteOne({
-                _id: Object.createFromHexString(commentId),
+                _id: ObjectId.createFromHexString(commentId),
                 user_id: userId,
-            })
-            return deleteResponse
+            });
+            return deleteResponse;
         } catch (e) {
-            console.error(`Unable to delete comment: ${e}`)
-            console.error(e)
-            return { error: e.message }
+            console.error(`Unable to delete comment: ${e}`);
+            return { error: e.message };
         }
     }
 }

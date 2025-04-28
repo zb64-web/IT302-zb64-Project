@@ -37,7 +37,7 @@ function App() {
             <Nav.Link as={NavLink} to={"/games"}>
               Games
             </Nav.Link>
-            <Nav.Link as={NavLink} to={user ? "" : "/login"}>
+            <Nav.Link as={NavLink} to={user ? "/login" : "/login"} onClick={user ? logout : null}>
               {user ? "Logout User" : "Login"}
             </Nav.Link>
           </Nav>
