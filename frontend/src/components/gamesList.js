@@ -129,16 +129,16 @@ const GamesList = () => {
                 <Row>
                     {games.map((game) => {
                         return (
-                            <Col key={game._id}> {/* Add a unique key here */}
+                            <Col key={game._id}>
                                 <Card style={{ width: '18rem' }}>
-                                    <Card.Img src={game.thumbnail + "/100px180"} />
+                                    <Card.Img src={game.thumbnail} />
                                     <Card.Body>
                                         <Card.Title>{game.title}</Card.Title>
                                         <Card.Text>
                                             Genre: {game.genre}
                                         </Card.Text>
                                         <Card.Text>{game.short_description}</Card.Text>
-                                        <Link to={"games/" + game._id} >View Game</Link>
+                                        <Link to={"/games/" + game._id} >View Game</Link>
                                     </Card.Body>
                                 </Card>
                             </Col>

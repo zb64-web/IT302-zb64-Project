@@ -8,8 +8,7 @@ import CommentsDAO from '../dao/commentsDAO.js'
 export default class CommentsController {
     static async apiPostComment(req, res, next) {
         try {
-            console.log("Request body:", req.body) // Add this line to log the request body
-
+            console.log("Request body:", req.body)
             const gameId = (req.body.games_id)
             const comment = req.body.comment
             const userInfo = {
@@ -18,7 +17,7 @@ export default class CommentsController {
             }
             const lastModified = new Date()
 
-            console.log("Parsed data:", { gameId, comment, userInfo, lastModified }) // Add this line to log the parsed data
+            console.log("Parsed data:", { gameId, comment, userInfo, lastModified }) 
 
             const CommentResponse = await CommentsDAO.addComment(
                 gameId,
@@ -28,33 +27,35 @@ export default class CommentsController {
             )
             res.json(CommentResponse)
         } catch (e) {
-            console.error("Error in apiPostComment:", e) // Add this line to log the error
+            console.error("Error in apiPostComment:", e)
             res.status(500).json({ error: e.message })
         }
     }
 
     static async apiUpdateComment(req, res, next) {
         try {
-            const commentId = req.body.comment_id
-            const comment = req.body.comment
-            const lastModified = new Date()
+            const commentId = req.body.comment_id;
+            const comment = req.body.comment;
+            const lastModified = new Date();
+    
             const CommentResponse = await CommentsDAO.updateComment(
                 commentId,
                 req.body.user_id,
                 comment,
                 lastModified
-            )
-
-            var { error } = CommentResponse
+            );
+    
+            var { error } = CommentResponse;
             if (error) {
-                res.status.json({ error })
+                res.status(400).json({ error });
             }
             if (CommentResponse.modifiedCount === 0) {
-                throw new Error("Unable to update comment. User may not be original poster")
+                throw new Error("Unable to update comment. User may not be original poster");
             }
-            res.json(CommentResponse)
+            res.json(CommentResponse);
         } catch (e) {
-            res.status(500).json({ error: e.message })
+            console.error("Error in apiUpdateComment:", e);
+            res.status(500).json({ error: e.message });
         }
     }
 

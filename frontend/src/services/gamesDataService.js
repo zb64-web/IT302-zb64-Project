@@ -17,7 +17,7 @@ class GameDataService {
             `${process.env.REACT_APP_BACKEND_URL}/api/v1/zb64/games?${by}=${query}&page=${page}`
         )
     }
-    createReview(data) {
+    createComment(data) {
         return axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/zb64/games/comment`, data)
     }
 
@@ -27,7 +27,7 @@ class GameDataService {
     deleteComment(id, userId) {
         return axios.delete(
             `${process.env.REACT_APP_BACKEND_URL}/api/v1/zb64/games/comment`,
-            { data: { review_id: id, user_id: userId } }
+            { data: { comment_id: id, user_id: userId } }
         )
     }
 

@@ -61,12 +61,11 @@ export default class GamesDAO {
                     }
                 },
                 {
-                    $lookup:
-                    {
-                        from: 'games_zb64',
+                    $lookup: {
+                        from: 'comments',
                         localField: '_id',
-                        foreignField: 'id',
-                        as: 'games'
+                        foreignField: 'games_id',
+                        as: 'comments'
                     }
                 }
             ]).next()

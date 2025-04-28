@@ -1,8 +1,8 @@
 //Zubaidah Bandele
 //IT302-452
-//April 14, 2025
-//Phase4
-import React, { useState } from "react";
+//April 23, 2025
+//Phase5
+import React, { useState, useCallback } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import GamesList from "./components/gamesList";
@@ -14,6 +14,10 @@ import AddComment from "./components/addComment";
 
 function App() {
   const [user, setUser] = useState(null);
+  const loginSetter = useCallback(user => {
+    setUser(user);
+  }, [setUser]);
+
 
   async function login(user = null) {
     setUser(user);
@@ -43,13 +47,10 @@ function App() {
         <Route path="/" element={<GamesList />}></Route>
         <Route path="/games" element={<GamesList />}></Route>
 
-        <Route path="/games/:id/" element={<Game user={user} />}></Route>
-        <Route
-          path="/games/:id/comment"
-          element={<AddComment user={user} />}
-        ></Route>
+        <Route path="/games/:id" element={<Game user={user} />} />
+        <Route path="/:id/comment" element={<AddComment user={user} />}></Route>
 
-        <Route path="/login" element={<Login login={login} />}></Route>
+        <Route path="/login" element={<Login login={login} loginSetter={loginSetter} />}></Route>
       </Routes>
     </div>
   );

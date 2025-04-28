@@ -25,7 +25,7 @@ export default class CommentsDAO {
                 user_id: user._id,
                 date: lastModified,
                 comment: comment,
-                games_id: new ObjectId(gameID)
+                games_id: ObjectId.createFromHexString(gameID)
             }
             return await comments.insertOne(commentDoc)
         } catch (e) {
@@ -38,7 +38,7 @@ export default class CommentsDAO {
     static async updateComment(commentId, userId, comment, lastModified) {
         try {
             const updateResponse = await comments.updateOne(
-                { user_id: userId, _id: new ObjectId(commentId) },
+                { user_id: userId, _id: ObjectId.createFromHexString(commentId) },
                 { $set: { comment: comment, date: lastModified } }
             )
             return updateResponse
@@ -49,10 +49,24 @@ export default class CommentsDAO {
         }
     }
 
+    static async apiDeleteComment(req,res,next) {
+        try {
+          const commentId = req.body.comment_id
+          const userId = req.body.user_id
+          const CommentResponse = await CommentsDAO.deleteComment(
+            commentId,
+            userId,
+          )
+          res.json(CommentResponse)
+        } catch(e) {
+          res.status(500).json({ error: e.message})
+        }
+    }
+
     static async deleteComment(commentId, userId) {
         try {
             const deleteResponse = await comments.deleteOne({
-                _id: new ObjectId(commentId),
+                _id: Object.createFromHexString(commentId),
                 user_id: userId,
             })
             return deleteResponse
@@ -62,6 +76,4 @@ export default class CommentsDAO {
             return { error: e.message }
         }
     }
-
-
 }
